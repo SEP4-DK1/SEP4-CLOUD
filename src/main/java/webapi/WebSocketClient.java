@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import webapi.DAO.DataDAO;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -19,7 +20,7 @@ import java.util.concurrent.CompletionStage;
 @Configuration
 public class WebSocketClient implements WebSocket.Listener {
 
-    private DataRepository repository;
+    private DataDAO dao;
     private WebSocket server = null;
     private String url = "wss://iotnet.teracom.dk/app?token=vnoUhgAAABFpb3RuZXQudGVyYWNvbS5ka_j9ctg1JnsNo1n5Rxn3neg=";
 
@@ -38,12 +39,12 @@ public class WebSocketClient implements WebSocket.Listener {
     } */
 
     @Bean
-    CommandLineRunner initClient(DataRepository repository){
+    CommandLineRunner initClient(DataDAO dao){
         HttpClient client = HttpClient.newHttpClient();
         CompletableFuture<WebSocket> ws = client.newWebSocketBuilder()
                 .buildAsync(URI.create(url), this);
         server = ws.join();
-        this.repository=repository;
+        this.dao = dao;
         System.out.println("Initiated the client");
         return null;
     }
@@ -102,7 +103,7 @@ public class WebSocketClient implements WebSocket.Listener {
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
-            repository.save(dataToSave);
+            //repository.save(dataToSave);
             System.out.println(indented);
             System.out.println("Received message: " + data);
         }
