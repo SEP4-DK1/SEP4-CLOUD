@@ -5,7 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 @Entity
-class Data {
+public class Data {
     private @Id
     @GeneratedValue Long id;
     private String temp;
@@ -19,6 +19,7 @@ class Data {
         this.temp = temp;
         this.humidity = humidity;
         this.co2 = co2;
+        this.timestamp = timestamp;
     }
 
     public Data() {}
@@ -53,5 +54,13 @@ class Data {
 
     public void setCo2(String co2) {
         this.co2 = co2;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 }
