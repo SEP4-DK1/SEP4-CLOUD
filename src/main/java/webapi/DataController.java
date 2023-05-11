@@ -17,7 +17,7 @@ public class DataController {
 
     @CrossOrigin
     @GetMapping("/data")
-    List<Data> byTimeOrLatest(@RequestBody String fromDate ,@RequestBody String fromTime,@RequestBody String toDate, @RequestBody String toTime){
+    List<Data> byTimeOrLatest(@RequestBody String fromDate,@RequestBody String fromTime,@RequestBody String toDate, @RequestBody String toTime){
         if(fromDate.isEmpty() && !fromDate.isBlank() && !fromTime.isEmpty() && !fromTime.isBlank() && !toDate.isEmpty() && !toDate.isBlank() && !toTime.isEmpty() && !toTime.isBlank()){
             return dataDAO.getByTime(fromDate, fromTime, toDate, toTime);
         }
@@ -30,5 +30,12 @@ public class DataController {
     @GetMapping("/data/all")
     List<Data> all(){
         return dataDAO.getAll();
+    }
+
+    @CrossOrigin
+    @PostMapping("/data")
+    void newData(@RequestBody Data newData){
+        System.out.println(newData);
+        dataDAO.saveData(newData);
     }
 }
