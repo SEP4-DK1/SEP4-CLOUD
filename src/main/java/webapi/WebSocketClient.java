@@ -1,9 +1,7 @@
 package webapi;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
