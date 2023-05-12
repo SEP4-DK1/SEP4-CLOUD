@@ -5,7 +5,7 @@ import org.json.JSONObject;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import webapi.DAO.DataDAO;
+import webapi.Database.DataDAO;
 
 import java.net.URI;
 import java.net.http.HttpClient;

@@ -1,6 +1,15 @@
 package webapi;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Data {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String temp;
     private String humidity;
     private String co2;
@@ -11,6 +20,11 @@ public class Data {
         this.humidity = humidity;
         this.co2 = co2;
         this.timestamp = timestamp;
+    }
+
+    public Data()
+    {
+
     }
 
     public String getTemp() {
