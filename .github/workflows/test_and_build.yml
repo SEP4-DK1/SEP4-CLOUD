@@ -34,3 +34,4 @@ jobs:
     - name: Build with maven
       run: mvn -B package -DskipTests --file pom.xml
     - run: mkdir staging && cp target/*.jar staging
+
