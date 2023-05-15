@@ -27,6 +27,11 @@ public class Data {
 
     }
 
+    public Long getId()
+    {
+        return id;
+    }
+
     public String getTemp() {
         return temp;
     }

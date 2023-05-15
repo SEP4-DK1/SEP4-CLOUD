@@ -16,7 +16,7 @@ public class DataController {
     @CrossOrigin
     @GetMapping("/data")
     List<Data> byTimeOrLatest(@RequestBody (required = false)SearchObject searchObject){
-        if(searchObject.isNotEmptyOrBlank()){
+        if(searchObject != null && searchObject.isNotEmptyOrBlank()){
             return dataDAO.getByTime(searchObject);
         }
         List<Data> dataList = new ArrayList<>();
