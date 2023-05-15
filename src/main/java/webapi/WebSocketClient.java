@@ -95,9 +95,20 @@ public class WebSocketClient implements WebSocket.Listener {
             Data dataToSave;
             try {
                 indented = json.toString(4);
-                int temp = Integer.parseInt((String) json.get("data"));
-                System.out.println("Binary: " + Integer.toBinaryString(temp));
-                dataToSave = new Data((String) json.get("data"), "4", "64", LocalDateTime.now().toString());
+                String hexString = (String) json.get("data");
+                int length = hexString.length();
+                if (length % 2 != 0) {
+                    throw new IllegalArgumentException("Hex string must have an even number of characters");
+                }
+                byte[] payload = new byte[length / 2];
+                for (int i = 0; i < length; i += 2) {
+                    payload[i / 2] = (byte) ((Character.digit(hexString.charAt(i), 16) << 4)
+                            + Character.digit(hexString.charAt(i + 1), 16));
+                }
+                short readInt = (short) ((payload[1] << 2) + (0xff & payload[0]));
+                readInt = (short) ((readInt/10)-20);
+                System.out.println("Short: " + readInt);
+                dataToSave = new Data(String.valueOf(readInt), "4", "64", LocalDateTime.now().toString());
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
