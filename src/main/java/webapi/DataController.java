@@ -1,8 +1,7 @@
 package webapi;
 
 import org.springframework.web.bind.annotation.*;
-import webapi.DAO.DataDAO;
-
+import webapi.Database.DataDAO;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,12 +13,11 @@ public class DataController {
     DataController(DataDAO dataDAO){
         this.dataDAO = dataDAO;
     }
-
     @CrossOrigin
     @GetMapping("/data")
-    List<Data> byTimeOrLatest(@RequestBody String fromDate,@RequestBody String fromTime,@RequestBody String toDate, @RequestBody String toTime){
-        if(fromDate.isEmpty() && !fromDate.isBlank() && !fromTime.isEmpty() && !fromTime.isBlank() && !toDate.isEmpty() && !toDate.isBlank() && !toTime.isEmpty() && !toTime.isBlank()){
-            return dataDAO.getByTime(fromDate, fromTime, toDate, toTime);
+    List<Data> byTimeOrLatest(@RequestBody (required = false)SearchObject searchObject){
+        if(searchObject.isNotEmptyOrBlank()){
+            return dataDAO.getByTime(searchObject);
         }
         List<Data> dataList = new ArrayList<>();
         dataList.add(dataDAO.getLatest());
@@ -35,7 +33,6 @@ public class DataController {
     @CrossOrigin
     @PostMapping("/data")
     void newData(@RequestBody Data newData){
-        System.out.println(newData);
-        dataDAO.saveData(newData);
+        dataDAO.saveNewData(newData);
     }
 }
