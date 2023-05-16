@@ -108,11 +108,11 @@ public class WebSocketClient implements WebSocket.Listener {
                 short readInt = (short) ((payload[1] << 2) + (0xff & payload[0]));
                 readInt = (short) ((readInt/10)-20);
                 System.out.println("Short: " + readInt);
-                dataToSave = new Data(String.valueOf(readInt), "4", "64", LocalDateTime.now().toString());
+                dataToSave = new Data(String.valueOf(readInt), "40", "64", "");
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
-            //repository.save(dataToSave);
+            dao.saveNewData(dataToSave);
             System.out.println(indented);
             System.out.println("Received message: " + data);
         }

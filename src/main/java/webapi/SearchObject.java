@@ -16,7 +16,7 @@ public class SearchObject
   }
 
   public boolean isNotEmptyOrBlank(){
-    return !fromDate.isEmpty() && !fromDate.isBlank() && !toDate.isEmpty() && !toDate.isBlank();
+    return fromDate != null && !fromDate.isBlank() && toDate != null && !toDate.isBlank();
   }
 
   public String getFromDate()

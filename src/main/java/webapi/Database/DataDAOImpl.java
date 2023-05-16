@@ -19,7 +19,17 @@ public class DataDAOImpl implements DataDAO{
 
     @Override public Data getLatest()
     {
-        return this.dataRepository.getMaxId();
+        List<Data> allData = dataRepository.findAll();
+        if(allData.size()>0){
+            Data latest = allData.get(0);
+            for(Data d:allData){
+                if(d.getId()>latest.getId()){
+                    latest = d;
+                }
+            }
+            return latest;
+        }
+        return null;
     }
 
     @Override public List<Data> getByTime(SearchObject searchObject)
@@ -39,7 +49,6 @@ public class DataDAOImpl implements DataDAO{
     }
 
     public Data saveNewData(Data data){
-        data.setTimestamp(LocalDateTime.now().toString());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy k:mm:ss");
         data.setTimestamp(LocalDateTime.now().format(formatter));
         return this.dataRepository.save(data);

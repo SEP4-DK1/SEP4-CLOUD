@@ -6,5 +6,4 @@ import webapi.Data;
 
 public interface DataRepository extends JpaRepository<Data, Long>
 {
-  @Query(value = "SELECT max(id) FROM Data") Data getMaxId();
 }
