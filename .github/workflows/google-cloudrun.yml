@@ -53,7 +53,8 @@ on:
 env:
   PROJECT_ID: sep4-386306
   GAR_LOCATION: europe-west3-b
-  SERVICE: sep4-386306
+  REPOSITORY: data-service-repository
+  SERVICE: data-service-cloudrun
   REGION: europe-west3-b
 
 jobs:
@@ -66,7 +67,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Build with maven
+        run: .\mvnw clean package
+
 
       - name: Google Auth
         id: auth
@@ -96,8 +107,8 @@ jobs:
 
       - name: Build and Push Container
         run: |-
-          docker build -t "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}" ./
-          docker push "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}"
+          docker build -t "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{env.REPOSITORY}}/${{ env.SERVICE }}:${{ github.sha }}" ./
+          docker push "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{env.REPOSITORY}}/${{ env.SERVICE }}:${{ github.sha }}"
 
       # END - Docker auth and build
 
