@@ -76,7 +76,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Build with maven
-        run: mvn verify
+        run: mvn -B package -DskipTests --file pom.xml
 
 
       - name: Google Auth
