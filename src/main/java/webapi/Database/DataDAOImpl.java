@@ -49,7 +49,6 @@ public class DataDAOImpl implements DataDAO{
     }
 
     public Data saveNewData(Data data){
-        data.setTimestamp(LocalDateTime.now().toString());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy k:mm:ss");
         data.setTimestamp(LocalDateTime.now().format(formatter));
         return this.dataRepository.save(data);
