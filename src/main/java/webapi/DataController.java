@@ -10,13 +10,16 @@ public class DataController {
 
     private final DataDAO dataDAO;
 
-    DataController(DataDAO dataDAO){
+    public DataController(DataDAO dataDAO){
         this.dataDAO = dataDAO;
     }
     @CrossOrigin
     @GetMapping("/data")
-    List<Data> byTimeOrLatest(@RequestBody (required = false)SearchObject searchObject){
-        if(searchObject != null && searchObject.isNotEmptyOrBlank()){
+    List<Data> byTimeOrLatest(@RequestParam (required = false)String fromDate, @RequestParam (required=false)String toDate){
+        SearchObject searchObject = new SearchObject();
+        searchObject.setFromDate(fromDate);
+        searchObject.setToDate(toDate);
+        if(searchObject.isNotEmptyOrBlank()){
             return dataDAO.getByTime(searchObject);
         }
         List<Data> dataList = new ArrayList<>();
