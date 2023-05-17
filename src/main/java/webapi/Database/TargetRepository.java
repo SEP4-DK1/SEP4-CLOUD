@@ -1,8 +1,8 @@
 package webapi.Database;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import webapi.Data;
+import webapi.Target;
 
-public interface DataRepository extends JpaRepository<Data, Long>
+public interface TargetRepository extends JpaRepository<Target, Long>
 {
 }

@@ -1,5 +1,6 @@
 package webapi;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import webapi.Database.DataDAO;
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class DataController {
 
     @CrossOrigin
     @PostMapping("/data")
+    @ResponseStatus(HttpStatus.CREATED)
     void newData(@RequestBody Data newData){
         dataDAO.saveNewData(newData);
     }
