@@ -19,7 +19,7 @@ public class DataController {
     }
     @CrossOrigin
     @GetMapping("/data")
-    List<Data> byTimeOrLatest(@RequestParam (required = false)String fromDate, @RequestParam (required=false)String toDate){
+    public List<Data> byTimeOrLatest(@RequestParam (required = false)String fromDate, @RequestParam (required=false)String toDate){
         SearchObject searchObject = new SearchObject();
         searchObject.setFromDate(fromDate);
         searchObject.setToDate(toDate);
@@ -33,14 +33,14 @@ public class DataController {
 
     @CrossOrigin
     @GetMapping("/data/all")
-    List<Data> all(){
+    public List<Data> all(){
         return dataDAO.getAll();
     }
 
     @CrossOrigin
     @PostMapping("/data")
     @ResponseStatus(HttpStatus.CREATED)
-    void newData(@RequestBody Data newData){
-        dataDAO.saveNewData(newData);
+    public Data newData(@RequestBody Data newData){
+        return dataDAO.saveNewData(newData);
     }
 }

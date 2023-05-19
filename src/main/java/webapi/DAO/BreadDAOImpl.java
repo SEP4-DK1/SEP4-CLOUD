@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import webapi.Domain.BreadProfile;
 import webapi.Repositories.BreadRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,12 +26,13 @@ public class BreadDAOImpl implements BreadDAO
   @Override public List<BreadProfile> getByTitle(String title)
   {
     List<BreadProfile> breadProfiles = breadRepository.findAll();
+    List<BreadProfile> toReturn = new ArrayList<>();
     for(BreadProfile b:breadProfiles){
       if(b.getTitle().contains(title)){
-        breadProfiles.add(b);
+        toReturn.add(b);
       }
     }
-    return breadProfiles;
+    return toReturn;
   }
 
   @Override public List<BreadProfile> getAll()
@@ -43,14 +45,20 @@ public class BreadDAOImpl implements BreadDAO
     return breadRepository.save(breadProfile);
   }
 
-  @Override public void deleteBread(long id)
+  @Override public BreadProfile deleteBread(long id)
   {
-    breadRepository.deleteById(id);
+    Optional<BreadProfile> profile = breadRepository.findById(id);
+    if(profile.isPresent()){
+      breadRepository.deleteById(id);
+      return profile.get();
+    } else{
+      return null;
+    }
   }
 
-  @Override public void updateBread(BreadProfile breadProfile)
+  @Override public BreadProfile updateBread(BreadProfile breadProfile)
   {
     breadRepository.deleteById(breadProfile.getId());
-    breadRepository.save(breadProfile);
+    return breadRepository.save(breadProfile);
   }
 }

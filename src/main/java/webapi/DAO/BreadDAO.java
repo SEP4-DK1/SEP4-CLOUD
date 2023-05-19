@@ -12,7 +12,7 @@ public interface BreadDAO
   public List<BreadProfile> getByTitle(String title);
   public List<BreadProfile> getAll();
   public BreadProfile saveNewBread(BreadProfile breadProfile);
-  public void deleteBread(long id);
-  public void updateBread(BreadProfile breadProfile);
+  public BreadProfile deleteBread(long id);
+  public BreadProfile updateBread(BreadProfile breadProfile);
 
 }

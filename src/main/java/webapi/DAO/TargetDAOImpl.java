@@ -19,11 +19,12 @@ public class TargetDAOImpl implements TargetDAO
     this.targetRepository = targetRepository;
   }
 
-  @Override public void saveTargets(List<Target> target)
+  @Override public List<Target> saveTargets(List<Target> target)
   {
     if(target!= null && target.size()>0){
-      targetRepository.saveAll(target);
+      return targetRepository.saveAll(target);
     }
+    return target;
   }
 
   @Override public Target getTarget()

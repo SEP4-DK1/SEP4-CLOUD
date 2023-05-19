@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface TargetDAO
 {
-  void saveTargets(List<Target> target);
+  List<Target> saveTargets(List<Target> target);
   Target getTarget();
 }

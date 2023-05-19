@@ -1,5 +1,7 @@
 package webapi.Controllers;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import webapi.Domain.BreadProfile;
 import webapi.DAO.BreadDAO;
@@ -19,7 +21,7 @@ public class BreadController
 
   @CrossOrigin
   @GetMapping("/bread")
-  List<BreadProfile> getBread(@RequestParam (required = false)Long id, @RequestParam (required = false) String title){
+  public List<BreadProfile> getBread(@RequestParam (required = false)Long id, @RequestParam (required = false) String title){
     List<BreadProfile> toReturn = new ArrayList<>();
     if(id!=null){
       Optional<BreadProfile> breadProfile = breadDAO.getById(id);
@@ -34,19 +36,27 @@ public class BreadController
 
   @CrossOrigin
   @PostMapping("/bread")
-  void newData(@RequestBody BreadProfile profile){
-    breadDAO.saveNewBread(profile);
+  @ResponseStatus(HttpStatus.CREATED)
+  public BreadProfile newProfile(@RequestBody BreadProfile profile){
+    return breadDAO.saveNewBread(profile);
   }
 
   @CrossOrigin
   @DeleteMapping("/bread")
-  void deleteBread(@RequestParam long id){
-    breadDAO.deleteBread(id);
+  public ResponseEntity<?> deleteBread(@RequestParam long id){
+    BreadProfile profile = breadDAO.deleteBread(id);
+    if(profile==null){
+      return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+    }
+    else {
+      return new ResponseEntity<>(profile, HttpStatus.ACCEPTED);
+    }
   }
 
   @CrossOrigin
-  @PatchMapping("/data")
-  void updateBread(@RequestBody BreadProfile profile){
-    breadDAO.updateBread(profile);
+  @PatchMapping("/bread")
+  @ResponseStatus(HttpStatus.CREATED)
+  public BreadProfile updateBread(@RequestBody BreadProfile profile){
+    return breadDAO.updateBread(profile);
   }
 }

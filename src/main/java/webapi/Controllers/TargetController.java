@@ -20,13 +20,13 @@ public class TargetController
   @CrossOrigin
   @PostMapping("/target")
   @ResponseStatus(HttpStatus.CREATED)
-  void newTarget(@RequestBody List<Target> newTarget){
-    targetDAO.saveTargets(newTarget);
+  public List<Target> newTarget(@RequestBody List<Target> newTarget){
+    return targetDAO.saveTargets(newTarget);
   }
 
   @CrossOrigin
   @GetMapping("/target")
-  Target getTarget(){
+  public Target getTarget(){
     return targetDAO.getTarget();
   }
 }
