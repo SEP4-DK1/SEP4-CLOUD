@@ -1,10 +1,12 @@
-package webapi.Database;
+package webapi.DAO;
 
 import org.springframework.stereotype.Service;
-import webapi.Data;
-import webapi.SearchObject;
+import webapi.Domain.Data;
+import webapi.Domain.SearchObject;
+import webapi.Repositories.DataRepository;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +52,7 @@ public class DataDAOImpl implements DataDAO{
 
     public Data saveNewData(Data data){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy k:mm:ss");
-        data.setTimestamp(LocalDateTime.now().format(formatter));
+        data.setTimestamp(LocalDateTime.now().atZone(ZoneId.of("CET")).format(formatter));
         return this.dataRepository.save(data);
     }
 

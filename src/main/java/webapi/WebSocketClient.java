@@ -5,13 +5,13 @@ import org.json.JSONObject;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import webapi.Database.DataDAO;
+import webapi.DAO.DataDAO;
+import webapi.Domain.Data;
 
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.WebSocket;
 import java.nio.ByteBuffer;
-import java.time.LocalDateTime;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
@@ -100,15 +100,17 @@ public class WebSocketClient implements WebSocket.Listener {
                 if (length % 2 != 0) {
                     throw new IllegalArgumentException("Hex string must have an even number of characters");
                 }
-                byte[] payload = new byte[length / 2];
+                byte[] bytes = new byte[length / 2];
                 for (int i = 0; i < length; i += 2) {
-                    payload[i / 2] = (byte) ((Character.digit(hexString.charAt(i), 16) << 4)
+                    bytes[i / 2] = (byte) ((Character.digit(hexString.charAt(i), 16) << 4)
                             + Character.digit(hexString.charAt(i + 1), 16));
                 }
-                short readInt = (short) ((payload[1] << 2) + (0xff & payload[0]));
-                readInt = (short) ((readInt/10)-20);
-                System.out.println("Short: " + readInt);
-                dataToSave = new Data(String.valueOf(readInt), "40", "64", "");
+                short readTemp = (short) (((bytes[1] & 0b11000000) << 2) + (0b11111111 & bytes[0]));
+                readTemp = (short) ((readTemp/10)-20);
+                short readHum = (short) (((bytes[2] & 0b10000000) >> 1) + (bytes[1] & 0b00111111));
+                short readCO2 = (short) (((bytes[3] & 0b11111100) << 6) + (bytes[2] & 0b01111111));
+                System.out.println("Temp: " + readTemp + " , Humidity: " + readHum + " , CO2: " + readCO2);
+                dataToSave = new Data(String.valueOf(readTemp), String.valueOf(readHum), String.valueOf(readCO2), "");
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }

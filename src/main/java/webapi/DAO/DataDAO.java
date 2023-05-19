@@ -1,7 +1,7 @@
-package webapi.Database;
+package webapi.DAO;
 
-import webapi.Data;
-import webapi.SearchObject;
+import webapi.Domain.Data;
+import webapi.Domain.SearchObject;
 
 import java.util.List;
 

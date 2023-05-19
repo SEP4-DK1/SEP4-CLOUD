@@ -1,7 +1,11 @@
-package webapi;
+package webapi.Controllers;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import webapi.Database.DataDAO;
+import webapi.Domain.Data;
+import webapi.DAO.DataDAO;
+import webapi.Domain.SearchObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +19,7 @@ public class DataController {
     }
     @CrossOrigin
     @GetMapping("/data")
-    List<Data> byTimeOrLatest(@RequestParam (required = false)String fromDate, @RequestParam (required=false)String toDate){
+    public List<Data> byTimeOrLatest(@RequestParam (required = false)String fromDate, @RequestParam (required=false)String toDate){
         SearchObject searchObject = new SearchObject();
         searchObject.setFromDate(fromDate);
         searchObject.setToDate(toDate);
@@ -29,13 +33,14 @@ public class DataController {
 
     @CrossOrigin
     @GetMapping("/data/all")
-    List<Data> all(){
+    public List<Data> all(){
         return dataDAO.getAll();
     }
 
     @CrossOrigin
     @PostMapping("/data")
-    void newData(@RequestBody Data newData){
-        dataDAO.saveNewData(newData);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Data newData(@RequestBody Data newData){
+        return dataDAO.saveNewData(newData);
     }
 }

@@ -1,4 +1,4 @@
-package webapi;
+package webapi.Domain;
 
 public class SearchObject
 {

@@ -1,4 +1,4 @@
-package webapi;
+package webapi.Domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,6 +30,10 @@ public class Data {
     public Long getId()
     {
         return id;
+    }
+
+    public void setId(long id){
+        this.id = id;
     }
 
     public String getTemp() {
