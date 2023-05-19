@@ -1,7 +1,8 @@
-package webapi;
+package webapi.Controllers;
 
 import org.springframework.web.bind.annotation.*;
-import webapi.Database.BreadDAO;
+import webapi.Domain.BreadProfile;
+import webapi.DAO.BreadDAO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +19,9 @@ public class BreadController
 
   @CrossOrigin
   @GetMapping("/bread")
-  List<BreadProfile> getBread(@RequestParam (required = false)long id, @RequestParam (required = false) String title){
+  List<BreadProfile> getBread(@RequestParam (required = false)Long id, @RequestParam (required = false) String title){
     List<BreadProfile> toReturn = new ArrayList<>();
-    if(id>0){
+    if(id!=null){
       Optional<BreadProfile> breadProfile = breadDAO.getById(id);
       breadProfile.ifPresent(toReturn::add);
     } else if(title!=null){

@@ -1,8 +1,7 @@
-package webapi;
+package webapi.Domain;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,10 +14,10 @@ public class BreadProfile
   private String title;
   private String description;
 
-  @OneToMany
-  private List<Target> targets;
+  @OneToMany(cascade = {CascadeType.ALL})
+  private List<BreadTarget> targets;
 
-  public BreadProfile(String title, String description, List<Target> targets)
+  public BreadProfile(String title, String description, List<BreadTarget> targets)
   {
     this.title = title;
     this.description = description;
@@ -54,12 +53,12 @@ public class BreadProfile
     this.description = description;
   }
 
-  public List<Target> getTargets()
+  public List<BreadTarget> getTargets()
   {
     return targets;
   }
 
-  public void setTargets(List<Target> targets)
+  public void setTargets(List<BreadTarget> targets)
   {
     this.targets = targets;
   }

@@ -1,7 +1,8 @@
-package webapi.Database;
+package webapi.DAO;
 
 import org.springframework.stereotype.Service;
-import webapi.BreadProfile;
+import webapi.Domain.BreadProfile;
+import webapi.Repositories.BreadRepository;
 
 import java.util.List;
 import java.util.Optional;

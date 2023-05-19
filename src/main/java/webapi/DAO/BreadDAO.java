@@ -1,6 +1,6 @@
-package webapi.Database;
+package webapi.DAO;
 
-import webapi.BreadProfile;
+import webapi.Domain.BreadProfile;
 
 import java.util.List;
 import java.util.Optional;

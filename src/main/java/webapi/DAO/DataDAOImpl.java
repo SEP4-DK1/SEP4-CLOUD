@@ -1,8 +1,9 @@
-package webapi.Database;
+package webapi.DAO;
 
 import org.springframework.stereotype.Service;
-import webapi.Data;
-import webapi.SearchObject;
+import webapi.Domain.Data;
+import webapi.Domain.SearchObject;
+import webapi.Repositories.DataRepository;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;

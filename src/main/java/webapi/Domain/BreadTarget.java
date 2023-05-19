@@ -1,4 +1,4 @@
-package webapi;
+package webapi.Domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -6,7 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Target
+public class BreadTarget
 {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,18 +15,18 @@ public class Target
   private String temp;
   private String humidity;
   private String co2;
-  private String timeToActivate;
+  private String offsetTime;
 
-  public Target()
+  public BreadTarget()
   {
   }
 
-  public Target(String temp, String humidity, String co2, String timeToActivate)
+  public BreadTarget(String temp, String humidity, String co2, String offsetTime)
   {
     this.temp = temp;
     this.humidity = humidity;
     this.co2 = co2;
-    this.timeToActivate = timeToActivate;
+    this.offsetTime = offsetTime;
   }
 
   public Long getId()
@@ -64,13 +64,13 @@ public class Target
     this.co2 = co2;
   }
 
-  public String getTimeToActivate()
+  public String getOffset()
   {
-    return timeToActivate;
+    return offsetTime;
   }
 
-  public void setTimeToActivate(String timeToActivate)
+  public void setOffset(String offsetTime)
   {
-    this.timeToActivate = timeToActivate;
+    this.offsetTime = offsetTime;
   }
 }

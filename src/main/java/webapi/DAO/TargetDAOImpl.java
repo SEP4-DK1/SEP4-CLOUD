@@ -1,7 +1,8 @@
-package webapi.Database;
+package webapi.DAO;
 
 import org.springframework.stereotype.Service;
-import webapi.Target;
+import webapi.Domain.Target;
+import webapi.Repositories.TargetRepository;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;

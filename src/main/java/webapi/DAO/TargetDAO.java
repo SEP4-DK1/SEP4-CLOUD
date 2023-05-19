@@ -1,6 +1,6 @@
-package webapi.Database;
+package webapi.DAO;
 
-import webapi.Target;
+import webapi.Domain.Target;
 
 import java.util.List;
 

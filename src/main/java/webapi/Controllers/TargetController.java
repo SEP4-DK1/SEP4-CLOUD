@@ -1,8 +1,9 @@
-package webapi;
+package webapi.Controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import webapi.Database.TargetDAO;
+import webapi.DAO.TargetDAO;
+import webapi.Domain.Target;
 
 import java.util.List;
 

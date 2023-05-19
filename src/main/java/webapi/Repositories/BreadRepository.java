@@ -1,7 +1,7 @@
-package webapi.Database;
+package webapi.Repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import webapi.BreadProfile;
+import webapi.Domain.BreadProfile;
 
 public interface BreadRepository extends JpaRepository<BreadProfile, Long>
 {
