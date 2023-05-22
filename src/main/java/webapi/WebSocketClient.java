@@ -6,7 +6,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import webapi.DAO.DataDAO;
+import webapi.DAO.TargetDAO;
 import webapi.Domain.Data;
+import webapi.Domain.Target;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -18,7 +20,8 @@ import java.util.concurrent.CompletionStage;
 @Configuration
 public class WebSocketClient implements WebSocket.Listener {
 
-    private DataDAO dao;
+    private DataDAO dataDAO;
+    private TargetDAO targetDAO;
     private WebSocket server = null;
     private String url = "wss://iotnet.teracom.dk/app?token=vnoUhgAAABFpb3RuZXQudGVyYWNvbS5ka_j9ctg1JnsNo1n5Rxn3neg=";
 
@@ -28,21 +31,14 @@ public class WebSocketClient implements WebSocket.Listener {
         server.sendText(jsonTelegram,true);
     }
 
-    /*
-    public WebSocketClient() {
-        HttpClient client = HttpClient.newHttpClient();
-        CompletableFuture<WebSocket> ws = client.newWebSocketBuilder()
-                .buildAsync(URI.create(url), this);
-        server = ws.join();
-    } */
-
     @Bean
-    CommandLineRunner initClient(DataDAO dao){
+    CommandLineRunner initClient(DataDAO dataDAO, TargetDAO targetDAO){
         HttpClient client = HttpClient.newHttpClient();
         CompletableFuture<WebSocket> ws = client.newWebSocketBuilder()
                 .buildAsync(URI.create(url), this);
         server = ws.join();
-        this.dao = dao;
+        this.dataDAO = dataDAO;
+        this.targetDAO = targetDAO;
         System.out.println("Initiated the client");
         return null;
     }
@@ -111,10 +107,29 @@ public class WebSocketClient implements WebSocket.Listener {
                 short readCO2 = (short) (((bytes[3] & 0b11111100) << 6) + (bytes[2] & 0b01111111));
                 System.out.println("Temp: " + readTemp + " , Humidity: " + readHum + " , CO2: " + readCO2);
                 dataToSave = new Data(String.valueOf(readTemp), String.valueOf(readHum), String.valueOf(readCO2), "");
+                Target target = targetDAO.getTarget();
+                if(target!=null){
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("cmd", "tx");
+                    jsonObject.put("EUI", "0004A30B00E8207E");
+                    jsonObject.put("port", "1");
+                    jsonObject.put("confirmed", "true");
+                    Short temp = Short.valueOf(target.getTemp());
+                    Short humidity = Short.valueOf(target.getHumidity());
+                    Short co2 = Short.valueOf(target.getCo2());
+                    String dataString = "";
+                    String tempString = Integer.toHexString(temp.intValue());
+                    String humidityString = Integer.toHexString(humidity.intValue());
+                    String co2String = Integer.toHexString(co2.intValue());
+                    dataString = tempString + humidityString + co2String;
+                    jsonObject.put("data", dataString);
+                    System.out.println(jsonObject);
+                    sendDownLink(jsonObject.toString());
+                }
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
-            dao.saveNewData(dataToSave);
+            dataDAO.saveNewData(dataToSave);
             System.out.println(indented);
             System.out.println("Received message: " + data);
         }
