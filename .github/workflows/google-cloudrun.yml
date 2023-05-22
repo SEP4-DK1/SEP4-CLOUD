@@ -123,7 +123,8 @@ jobs:
             --region ${{env.REGION}} \
             --project ${{env.PROJECT_ID}} \
             --format json \
-            --allow-unauthenticated
+            --allow-unauthenticated \
+            --timeout=59m59s
             
 
       # If required, use the Cloud Run url output in later steps
