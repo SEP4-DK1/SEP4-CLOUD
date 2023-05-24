@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -40,6 +41,8 @@ public class TargetDAOImpl implements TargetDAO
         potentialTargetsToReturn.add(t);
       }
     }
+
+    System.out.println(Arrays.toString(potentialTargetsToReturn.toArray()));
 
     if(potentialTargetsToReturn.size()==1){
       Target toReturn = potentialTargetsToReturn.get(0);
