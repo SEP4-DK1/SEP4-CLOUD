@@ -31,8 +31,8 @@ class TargetControllerUnitTest
   @Test void newTarget()
   {
     List<Target> newTargets = new ArrayList<>();
-    Target target1 = new Target("25", "25", "25", "19-05-2023 12:45");
-    Target target2 = new Target("30", "30", "30", "19-05-2023 12:55");
+    Target target1 = new Target("25", "25", "19-05-2023 12:45:00");
+    Target target2 = new Target("30", "30", "19-05-2023 12:55:00");
     newTargets.add(target1); newTargets.add(target2);
     List<Target> returned;
     when(targetDAO.saveTargets(any())).thenReturn(newTargets);
@@ -42,7 +42,7 @@ class TargetControllerUnitTest
 
   @Test void getTarget()
   {
-    Target target1 = new Target("25", "25", "25", "19-05-2023 12:45");
+    Target target1 = new Target("25", "25", "19-05-2023 12:45:00");
     Target returned;
     when(targetDAO.getTarget()).thenReturn(target1);
     returned = controller.getTarget();

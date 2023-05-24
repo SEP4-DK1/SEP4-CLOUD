@@ -32,7 +32,7 @@ class BreadDAOImplUnitTest
   @Test void getById()
   {
     List<BreadTarget> dummyTargets = new ArrayList<>();
-    BreadTarget target = new BreadTarget("25", "25", "25", "19-05-2023 12:30");
+    BreadTarget target = new BreadTarget("25", "25", "19-05-2023 12:30");
     dummyTargets.add(target);
     BreadProfile bread1 = new BreadProfile("Franskbrød", "fransk brød", dummyTargets);
     Optional<BreadProfile> expected = Optional.of(bread1);
@@ -44,7 +44,7 @@ class BreadDAOImplUnitTest
   @Test void getByTitle()
   {
     List<BreadTarget> dummyTargets = new ArrayList<>();
-    BreadTarget target = new BreadTarget("25", "25", "25", "19-05-2023 12:30");
+    BreadTarget target = new BreadTarget("25", "25", "19-05-2023 12:30");
     dummyTargets.add(target);
     List<BreadProfile> breadList = new ArrayList<>();
     BreadProfile bread1 = new BreadProfile("Franskbrød", "fransk brød", dummyTargets);
@@ -63,7 +63,7 @@ class BreadDAOImplUnitTest
   @Test void getAll()
   {
     List<BreadTarget> dummyTargets = new ArrayList<>();
-    BreadTarget target = new BreadTarget("25", "25", "25", "19-05-2023 12:30");
+    BreadTarget target = new BreadTarget("25", "25", "19-05-2023 12:30");
     dummyTargets.add(target);
     BreadProfile bread1 = new BreadProfile("Franskbrød", "fransk brød", dummyTargets);
     List<BreadProfile> breadList = new ArrayList<>(); breadList.add(bread1);
@@ -75,7 +75,7 @@ class BreadDAOImplUnitTest
   @Test void saveNewBread()
   {
     List<BreadTarget> dummyTargets = new ArrayList<>();
-    BreadTarget target = new BreadTarget("25", "25", "25", "19-05-2023 12:30");
+    BreadTarget target = new BreadTarget("25", "25", "19-05-2023 12:30");
     dummyTargets.add(target);
     BreadProfile bread1 = new BreadProfile("Franskbrød", "fransk brød", dummyTargets);
 
@@ -88,7 +88,7 @@ class BreadDAOImplUnitTest
   @Test void deleteBread()
   {
     List<BreadTarget> dummyTargets = new ArrayList<>();
-    BreadTarget target = new BreadTarget("25", "25", "25", "19-05-2023 12:30");
+    BreadTarget target = new BreadTarget("25", "25", "19-05-2023 12:30");
     dummyTargets.add(target);
     BreadProfile bread1 = new BreadProfile("Franskbrød", "fransk brød", dummyTargets);
     Optional<BreadProfile> expected = Optional.of(bread1);
@@ -100,7 +100,7 @@ class BreadDAOImplUnitTest
   @Test void updateBread()
   {
     List<BreadTarget> dummyTargets = new ArrayList<>();
-    BreadTarget target = new BreadTarget("25", "25", "25", "19-05-2023 12:30");
+    BreadTarget target = new BreadTarget("25", "25", "19-05-2023 12:30");
     dummyTargets.add(target);
     BreadProfile bread1 = new BreadProfile("Franskbrød", "fransk brød", dummyTargets);
 
