@@ -1,5 +1,7 @@
 package webapi.DAO;
 
+import com.google.api.client.util.DateTime;
+import jnr.constants.platform.Local;
 import org.springframework.stereotype.Service;
 import webapi.Domain.Data;
 import webapi.Domain.SearchObject;
@@ -11,6 +13,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimeZone;
 
 @Service
 public class DataDAOImpl implements DataDAO{
@@ -52,8 +55,10 @@ public class DataDAOImpl implements DataDAO{
     }
 
     public Data saveNewData(Data data){
+        TimeZone timeZone = TimeZone.getTimeZone("GMT+2");
+        LocalDateTime currentTime = LocalDateTime.now(timeZone.toZoneId());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy k:mm:ss");
-        data.setTimestamp(ZonedDateTime.now().format(formatter));
+        data.setTimestamp(currentTime.format(formatter));
         return this.dataRepository.save(data);
     }
 
