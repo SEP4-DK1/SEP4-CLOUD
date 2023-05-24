@@ -14,6 +14,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.WebSocket;
 import java.nio.ByteBuffer;
+import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
@@ -78,6 +79,7 @@ public class WebSocketClient implements WebSocket.Listener {
     };
     //onText()
     public CompletionStage<?> onText(WebSocket webSocket, CharSequence data, boolean last) {
+        System.out.println(data.toString());
         JSONObject json;
         Object command;
         try {
@@ -104,27 +106,36 @@ public class WebSocketClient implements WebSocket.Listener {
                 short readTemp = (short) (((bytes[1] & 0b11000000) << 2) + (0b11111111 & bytes[0]));
                 readTemp = (short) ((readTemp/10)-20);
                 short readHum = (short) (((bytes[2] & 0b10000000) >> 1) + (bytes[1] & 0b00111111));
-                short readCO2 = (short) (((bytes[3] & 0b11111100) << 6) + (bytes[2] & 0b01111111));
+                short readCO2 = (short) (((bytes[3] & 0b11111100) << 5) + (bytes[2] & 0b01111111));
                 System.out.println("Temp: " + readTemp + " , Humidity: " + readHum + " , CO2: " + readCO2);
                 dataToSave = new Data(String.valueOf(readTemp), String.valueOf(readHum), String.valueOf(readCO2), "");
                 Target target = targetDAO.getTarget();
-                if(target!=null){
+                System.out.println("Target :" + target);
+                if(target!=null && target.getTemp()!=null && target.getHumidity()!=null){
                     JSONObject jsonObject = new JSONObject();
                     jsonObject.put("cmd", "tx");
                     jsonObject.put("EUI", "0004A30B00E8207E");
                     jsonObject.put("port", "1");
-                    jsonObject.put("confirmed", "true");
-                    Short temp = Short.valueOf(target.getTemp());
-                    Short humidity = Short.valueOf(target.getHumidity());
-                    Short co2 = Short.valueOf(target.getCo2());
-                    String dataString = "";
-                    String tempString = Integer.toHexString(temp.intValue());
-                    String humidityString = Integer.toHexString(humidity.intValue());
-                    String co2String = Integer.toHexString(co2.intValue());
-                    dataString = tempString + humidityString + co2String;
-                    jsonObject.put("data", dataString);
-                    System.out.println(jsonObject);
+                    jsonObject.put("confirmed", false);
+
+                    short temp = Short.parseShort(target.getTemp());
+                    short humidity = Short.parseShort(target.getHumidity());
+                    byte byteArray[] = new byte[3];
+                    byteArray[0] = (byte) temp;
+                    byteArray[1] = (byte)((temp >> 2) & 0b11000000);
+                    byteArray[1] |= (byte) (humidity  & 0b00111111);
+                    byteArray[2] = (byte)((humidity << 1) & 0b10000000);
+
+                    String hex[] = new String[3];
+                    for (int i = 0; i < byteArray.length;i++) {
+                        hex[i] = String.format("%1$2s",Integer.toHexString((int) byteArray[i] & 0xff)).replace(" ","0");
+                    }
+                    String dataString = String.join("",hex);
+                    jsonObject.put("data",dataString);
+                    System.out.println("JSON OBJECT: " + jsonObject);
                     sendDownLink(jsonObject.toString());
+                } else if(target==null){
+                    System.out.println("No targets found");
                 }
             } catch (JSONException e) {
                 throw new RuntimeException(e);
