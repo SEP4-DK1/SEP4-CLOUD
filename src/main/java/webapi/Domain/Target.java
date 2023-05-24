@@ -14,18 +14,16 @@ public class Target
 
   private String temp;
   private String humidity;
-  private String co2;
   private String timeToActivate;
 
   public Target()
   {
   }
 
-  public Target(String temp, String humidity, String co2, String timeToActivate)
+  public Target(String temp, String humidity, String timeToActivate)
   {
     this.temp = temp;
     this.humidity = humidity;
-    this.co2 = co2;
     this.timeToActivate = timeToActivate;
   }
 
@@ -55,16 +53,6 @@ public class Target
   public void setHumidity(String humidity)
   {
     this.humidity = humidity;
-  }
-
-  public String getCo2()
-  {
-    return co2;
-  }
-
-  public void setCo2(String co2)
-  {
-    this.co2 = co2;
   }
 
   public String getTimeToActivate()

@@ -33,7 +33,7 @@ class BreadControllerUnitTest
   @Test void getBread()
   {
     List<BreadTarget> dummyTargets = new ArrayList<>();
-    BreadTarget target = new BreadTarget("25", "25", "25", "19-05-2023 12:30");
+    BreadTarget target = new BreadTarget("25", "25", "19-05-2023 12:30");
     dummyTargets.add(target);
     BreadProfile bread1 = new BreadProfile("Franskbrød", "fransk brød", dummyTargets);
     BreadProfile bread2 = new BreadProfile("Rundstykker", "runde stykker", dummyTargets);
@@ -48,7 +48,7 @@ class BreadControllerUnitTest
   @Test void newProfile()
   {
     List<BreadTarget> dummyTargets = new ArrayList<>();
-    BreadTarget target = new BreadTarget("25", "25", "25", "19-05-2023 12:30");
+    BreadTarget target = new BreadTarget("25", "25", "19-05-2023 12:30");
     dummyTargets.add(target);
     BreadProfile returned;
     BreadProfile profileToCreate = new BreadProfile("Franskbrød", "fransk brød", dummyTargets);
@@ -61,7 +61,7 @@ class BreadControllerUnitTest
   {
     ResponseEntity<?> returned;
     List<BreadTarget> dummyTargets = new ArrayList<>();
-    BreadTarget target = new BreadTarget("25", "25", "25", "19-05-2023 12:30");
+    BreadTarget target = new BreadTarget("25", "25", "19-05-2023 12:30");
     dummyTargets.add(target);
     BreadProfile profileToDelete = new BreadProfile("Franskbrød", "fransk brød", dummyTargets);
     ResponseEntity<?> expected = new ResponseEntity<>(profileToDelete, HttpStatus.ACCEPTED);
@@ -73,7 +73,7 @@ class BreadControllerUnitTest
   @Test void updateBread()
   {
     List<BreadTarget> dummyTargets = new ArrayList<>();
-    BreadTarget target = new BreadTarget("25", "25", "25", "19-05-2023 12:30");
+    BreadTarget target = new BreadTarget("25", "25", "19-05-2023 12:30");
     dummyTargets.add(target);
     BreadProfile returned;
     BreadProfile profileToUpdate = new BreadProfile("Franskbrød", "fransk brød", dummyTargets);

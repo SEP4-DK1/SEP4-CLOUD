@@ -14,18 +14,16 @@ public class BreadTarget
 
   private String temp;
   private String humidity;
-  private String co2;
   private String offsetTime;
 
   public BreadTarget()
   {
   }
 
-  public BreadTarget(String temp, String humidity, String co2, String offsetTime)
+  public BreadTarget(String temp, String humidity, String offsetTime)
   {
     this.temp = temp;
     this.humidity = humidity;
-    this.co2 = co2;
     this.offsetTime = offsetTime;
   }
 
@@ -52,16 +50,6 @@ public class BreadTarget
   public void setHumidity(String humidity)
   {
     this.humidity = humidity;
-  }
-
-  public String getCo2()
-  {
-    return co2;
-  }
-
-  public void setCo2(String co2)
-  {
-    this.co2 = co2;
   }
 
   public String getOffset()
