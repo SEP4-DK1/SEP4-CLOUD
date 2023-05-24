@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.TimeZone;
 
 @Service
 public class TargetDAOImpl implements TargetDAO
@@ -33,11 +34,11 @@ public class TargetDAOImpl implements TargetDAO
     List<Target> potentialTargetsToReturn = new ArrayList<>();
     List<Target> targets=targetRepository.findAll();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy k:mm:ss");
-    String now = LocalDateTime.now().atZone(ZoneId.of("CET")).format(formatter);
-    LocalDateTime dateTimeNow = LocalDateTime.parse(now, formatter);
+    TimeZone timeZone = TimeZone.getTimeZone("GMT+2");
+    LocalDateTime currentTime = LocalDateTime.now(timeZone.toZoneId());
     for(Target t: targets){
       LocalDateTime targetTime = LocalDateTime.parse(t.getTimeToActivate(), formatter);
-      if(targetTime.isBefore(dateTimeNow)){
+      if(targetTime.isBefore(currentTime)){
         potentialTargetsToReturn.add(t);
       }
     }
