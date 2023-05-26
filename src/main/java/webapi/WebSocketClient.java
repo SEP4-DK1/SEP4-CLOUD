@@ -117,8 +117,8 @@ public class WebSocketClient implements WebSocket.Listener {
                     jsonObject.put("EUI", "0004A30B00E8207E");
                     jsonObject.put("port", "1");
                     jsonObject.put("confirmed", false);
-
                     short temp = Short.parseShort(target.getTemp());
+                    temp = (short) ((temp*100)+200);
                     short humidity = Short.parseShort(target.getHumidity());
                     byte byteArray[] = new byte[3];
                     byteArray[0] = (byte) temp;
@@ -138,6 +138,7 @@ public class WebSocketClient implements WebSocket.Listener {
                     System.out.println("No targets found");
                 }
             } catch (JSONException e) {
+                System.out.println("Reached catch block in onText()");
                 throw new RuntimeException(e);
             }
             dataDAO.saveNewData(dataToSave);
