@@ -1,4 +1,4 @@
-package tests.IntegrationTests;
+package IntegrationTests;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,12 +13,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import webapi.Controllers.BreadController;
 import webapi.DAO.BreadDAO;
-import webapi.Domain.BreadProfile;
-
-import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class BreadControllerIntTest {
