@@ -1,4 +1,4 @@
-package tests.DAO;
+package DAO;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -41,6 +41,14 @@ class DataDAOImplUnitTest
     when(repository.findAll()).thenReturn(dataList);
     latest = dataDAO.getLatest();
     assertEquals(data5, latest);
+  }
+
+  @Test void getLatestNoneReturned()
+  {
+    List<Data> datalist = new ArrayList<>();
+    when(repository.findAll()).thenReturn(datalist);
+    Data latest = dataDAO.getLatest();
+    assertNull(latest);
   }
 
   @Test void getByTime()

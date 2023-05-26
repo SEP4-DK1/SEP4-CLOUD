@@ -1,4 +1,4 @@
-package tests.IntegrationTests;
+package IntegrationTests;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,7 +13,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import webapi.Controllers.TargetController;
 import webapi.DAO.TargetDAO;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(MockitoExtension.class)
 public class TargetControllerIntTest {
