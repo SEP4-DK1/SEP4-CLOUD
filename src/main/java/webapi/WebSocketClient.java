@@ -118,7 +118,7 @@ public class WebSocketClient implements WebSocket.Listener {
                     jsonObject.put("port", "1");
                     jsonObject.put("confirmed", false);
                     short temp = Short.parseShort(target.getTemp());
-                    temp = (short) ((temp*100)+200);
+                    temp = (short) ((temp*10)+200);
                     short humidity = Short.parseShort(target.getHumidity());
                     byte byteArray[] = new byte[3];
                     byteArray[0] = (byte) temp;
