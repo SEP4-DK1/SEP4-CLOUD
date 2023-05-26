@@ -1,4 +1,4 @@
-package tests.DAO;
+package DAO;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -6,11 +6,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import webapi.DAO.BreadDAOImpl;
-import webapi.DAO.DataDAOImpl;
 import webapi.Domain.BreadProfile;
 import webapi.Domain.BreadTarget;
 import webapi.Repositories.BreadRepository;
-import webapi.Repositories.DataRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,6 +93,14 @@ class BreadDAOImplUnitTest
     when(repository.findById(any())).thenReturn(expected);
     BreadProfile returned = breadDAO.deleteBread(1L);
     assertEquals(expected.get(), returned);
+  }
+
+  @Test void deleteBreadNotFound()
+  {
+    Optional<BreadProfile> toReturn = Optional.empty();
+    when(repository.findById(any())).thenReturn(toReturn);
+    BreadProfile returned = breadDAO.deleteBread(0);
+    assertNull(returned);
   }
 
   @Test void updateBread()
