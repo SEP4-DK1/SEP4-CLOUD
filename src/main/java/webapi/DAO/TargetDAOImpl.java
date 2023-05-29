@@ -59,11 +59,13 @@ public class TargetDAOImpl implements TargetDAO
   }
 
   private Target getNewestTarget(List<Target> targets){
-    long highestID = 0;
+    LocalDateTime newestTime = LocalDateTime.of(1970, 1, 1, 1, 1, 1);
     Target toReturn = null;
     for(Target t: targets){
-      if(t.getId()>highestID){
-        highestID=t.getId();
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy k:mm:ss");
+      LocalDateTime tTime = LocalDateTime.parse(t.getTimeToActivate(), formatter);
+      if(tTime.isAfter(newestTime)){
+        newestTime= tTime;
         toReturn = t;
       }
     }
